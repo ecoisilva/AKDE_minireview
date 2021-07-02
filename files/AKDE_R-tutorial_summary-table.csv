@@ -1,0 +1,6 @@
+Method,When to run?,What does it do?,R function
+AKDE,Tracking data is autocorrelated,"Estimates range distributions from autocorrelated data, by conditioning on an autocorrelation model.","akde(…, debias = FALSE)"
+AKDEc,If using GRF-based KDEs (such as AKDE),Removes the tendency of Gaussian reference function (GRF) methods  to overestimate the area of home ranges.,"akde(…, debias = TRUE)"
+pHREML,Small (absolute and effective) sample sizes,"Improves upon ML and REML autocorrelation estimation, mitigating small sample size biases.","ctmm.select(…, method = ""pHREML"")"
+wAKDEc,Irregular sampling schedules or missing data,"Upweights observations that occur during under-sampled times, while downweighting those occurring during over-sampled times.","akde(…, weights = TRUE)"
+Parametric bootstrap,Extremely small effective sample size,"Calculates and corrects for autocorrelation estimation biases, by simulating from an approximate sampling distribution.",ctmm.boot(...)

@@ -19,6 +19,7 @@
 
 # RStudio files
 .Rproj.user/
+*.Rproj
 
 # produced vignettes
 vignettes/*.html
@@ -37,3 +38,9 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# to knit
+/code/AKDE_R-tutorial_toknit.Rmd
+
+# file backup
+/archives/
