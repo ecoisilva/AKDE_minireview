@@ -1,0 +1,8 @@
+variable,description
+method,home range estimator method
+duration,sampling duration (in days)
+relArea,Relative home range area (true home range area is scaled to 1)
+error,Relative error of home range area
+cost,computational cost (in seconds)
+tau_p,position autocorrelation timescale (in sec)
+tau_v,velocity autocorrelation timescale (in sec)

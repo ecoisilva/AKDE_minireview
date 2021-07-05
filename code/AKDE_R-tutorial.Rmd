@@ -20,6 +20,7 @@ output:
         toc_depth: 2
         toc_float: true
 bibliography: references/R_tutorial.bib
+csl: references/apa.csl
 ---
 
 ```{r setup, include = FALSE}
@@ -35,6 +36,10 @@ knitr::opts_chunk$set(
 
 Home range estimation is a key output from tracking datasets, but the inherent properties of animal movement can lead traditional methods to under- or overestimated their size. **Autocorrelated Kernel Density Estimation (AKDE)** methods were designed to be statistically efficient while explicitly dealing with the complexities and biases of modern movement data, such as *autocorrelation*, *small sample sizes*, and *missing or irregularly sampled data*.
 
+<aside>
+*Home range*: the area repeatedly used throughout an animal’s lifetime for all its normal behaviors and activities, excluding occasional exploratory moves.
+</aside>
+
 This tutorial is a companion piece to our manuscript *"Autocorrelation-informed home range estimation: a review and practical guide"*. For any definitions, check the main manuscript or the *[Glossary]*. The **AKDE** family of home range estimators will be run using **R software** (<https://www.r-project.org/>) and the `ctmm` package [@calabrese_ctmm_2016]. The techniques and mitigation measures available within this package include:
 
 ```{r, include = FALSE}
@@ -44,10 +49,13 @@ library(knitr)
 library(kableExtra)
 library(ctmm)
 
-# if necessary, quickly load already run objects
-load("files/AKDE_R-tutorial_ctmm-runs.RData")
+library(here)
 
-table.dat <- read.csv("files/AKDE_R-tutorial_summary-table.csv")
+# if necessary, quickly load already run objects
+load(here::here("files/AKDE_R-tutorial_ctmm-runs.RData"))
+
+table.dat <- read.csv(here::here("files/AKDE_R-tutorial_summary-table.csv"))
+
 colnames(table.dat) <- c("Method",
                          "When to run?", 
                          "What does it do?", 
@@ -130,7 +138,15 @@ plot(animal2_gazelle)
 
 ```
 
-Mongolian gazelles have a **home range crossing time** of a few months, and with a maximum longevity around 10 years, it is impossible to get a considerable **effective sample size** no matter the study duration [@fleming_overcoming_2019]. We will use this dataset to highlight how to check **effective sample size** and apply the **parametric bootstrap** mitigation. 
+<aside>
+*Home range crossing time*: the time required for an animal to cross the linear extent of its home range.
+</aside>
+
+Mongolian gazelles have a ***home range crossing time*** of a few months, and with a maximum longevity around 10 years, it is impossible to get a considerable ***effective sample size*** no matter the study duration [@fleming_overcoming_2019]. We will use this dataset to highlight how to check ***effective sample size*** and apply the **parametric bootstrap** mitigation. 
+
+<aside>
+*Effective sample size (N)*: number of range crossings that occurred during the observation period. Can be roughly estimated by dividing the duration of the tracking dataset by the average home range crossing time parameter.
+</aside>
 
 ------------------------------------------------------------------------
 
@@ -138,7 +154,11 @@ Mongolian gazelles have a **home range crossing time** of a few months, and with
 
 ## **Step 2.** -- Checking for the *range residency* assumption
 
-First, we want to check if our first tracking dataset (`animal1_buffalo`) can be used for home range estimation by checking for **range residency**. To achieve this, we calculate the **semi-variance function (SVF)**, and visualize it through the `variogram()` function.
+First, we want to check if our first tracking dataset (`animal1_buffalo`) can be used for home range estimation by checking for ***range residency***. To achieve this, we calculate the **semi-variance function (SVF)**, and visualize it through the `variogram()` function.
+
+<aside>
+*Range residency*: the tendency of an animal to remain within their home range.
+</aside>
 
 **Variograms** are an unbiased way to visualize *autocorrelation* structure, representing the average square displacement (y-axis) over a specific time lag (x-axis). To facilitate interpretation, we have the **SVF** of `animal1_buffalo` zoomed out (right) to showcase all time lags and (left) zoomed in to showcase time lags up to two months:
 
@@ -156,7 +176,7 @@ abline(v = 1, col = "red", lty = 2)
 
 ```
 
-We can see that the variogram flattens (*i.e.*, reaches an asymptote) after approximately **1 month** (red line). This also indicates at how coarse the timeseries needs to be to assume independence (no autocorrelation), and corresponds to when traditional methods ---such as **minimum convex polygons (MCPs)** and **Kernel Density Estimators (KDEs)**--- could be applied without violating their assumptions.
+We can see that the variogram flattens (*i.e.*, reaches an asymptote) after approximately **1 month** (<span style="color: red;">red</span> line). This also indicates at how coarse the timeseries needs to be to assume independence (no autocorrelation), and corresponds to when traditional methods ---such as **minimum convex polygons (MCPs)** and **Kernel Density Estimators (KDEs)**--- could be applied without violating their assumptions.
 
 ## **Step 3.** -- Selecting the best-fit movement model through *model selection*
 
@@ -177,7 +197,7 @@ summary(FIT1_pHREML)
 
 ```
 
-Within these summaries, `$name` provides the selected best-fit model, `$DOF` provides information on the degrees of freedom (where `$DOF["area"]` corresponds to the **effective sample size** of the home-range area estimate), and `$CI` are the parameter outputs (area, position autocorrelation timescale, velocity autocorrelation timescale, and speed).
+Within these summaries, `$name` provides the selected best-fit model, `$DOF` provides information on the degrees of freedom (where `$DOF["area"]` corresponds to the ***effective sample size*** of the home-range area estimate), and `$CI` are the parameter outputs (area, position autocorrelation timescale, velocity autocorrelation timescale, and speed).
 
 The typical pool of candidate models includes isotropic (when diffusion is the same in every direction; symmetrical) and anisotropic (when diffusion varies with direction; asymmetrical) variants. The automated model selection shows that *OUF anisotropic* (anisotropic Ornstein-Uhlenbeck foraging process) is our best-fit model. This movement process features a home range, correlated positions, and correlated velocities. To check the full model selection table, we can run the following command:
 
@@ -217,7 +237,11 @@ nrow(animal1_buffalo) # absolute sample size
 
 ```
 
-Our output here also reveals more information regarding our dataset: the **effective sample size (*N*)** and the **absolute sample size (*n*)**. We can return this measure with the `summary` function: in our case, the *N* for `animal1_buffalo` is 15.7. Comparatively, our **absolute sample size** is easy to output, as it is the total number of observations within our dataset (*n* = 1,725).
+Our output here also reveals more information regarding our dataset: the ***effective sample size (N)*** and the ***absolute sample size (*n*)***. We can return this measure with the `summary` function: in our case, the *N* for `animal1_buffalo` is 15.7. Comparatively, our ***absolute sample size*** is easy to output, as it is the total number of observations within our dataset (*n* = 1,725).
+
+<aside>
+*Absolute sample size (n)*: the number of observations (fixes) in a dataset.
+</aside>
 
 As mentioned earlier, `animal1_buffalo` had a device malfunction that led GPS fixes to shift from one fix per hour, to one fix every two hours. As such, this individual is particularly suited for a **weighted AKDEc** (or **wAKDEc**), so we can re-run the function with weights set to `TRUE`:
 
@@ -254,7 +278,7 @@ For `animal1_buffalo`, the difference between model parameter estimators is not 
 
 ### 5.2. Gazelle tracking data
 
-We can also check the difference with `animal2_gazelle`’s tracking data, where the small **effective sample size** issue is clearer: 
+We can also check the difference with `animal2_gazelle`’s tracking data, where the small ***effective sample size*** issue is clearer: 
 
 ```{r}
 
@@ -268,7 +292,7 @@ UD2_pHREML <- akde(animal2_gazelle, FIT2_pHREML)
 
 ```
 
-With `animal2_gazelle`, we have a more substantial area underestimation by ML compared to pHREML (~15.2%). We can also see that our *effective sample size* is only 4.5, with an *absolute sample size* of 49 (*N* $\ll$ *n*). 
+With `animal2_gazelle`, we have a more substantial area underestimation by ML compared to pHREML (~15.2%). We can also see that our ***effective sample size*** is only 4.5, with an ***absolute sample size*** of 49 (*N* $\ll$ *n*). 
 
 ```{r}
 
@@ -279,7 +303,7 @@ nrow(animal2_gazelle) # absolute sample size
 
 ```
 
-At this point, we have selected a movement process, fed it into a home range area estimation with different model parameter estimators, and corrected for irregular sampling rates. With **small effective sample sizes**, it is important to see if **parametric bootstrapping** may be worth it to further reduce our estimation error. In order to do so, we can check the expected order of bias from pHREML:
+At this point, we have selected a movement process, fed it into a home range area estimation with different model parameter estimators, and corrected for irregular sampling rates. With small ***effective sample sizes***, it is important to see if **parametric bootstrapping** may be worth it to further reduce our estimation error. In order to do so, we can check the expected order of bias from pHREML:
 
 ```{r}
 
@@ -304,7 +328,7 @@ summary(BOOT)
 
 We can see that the expected order of bias was reduced to 2.3%, which is comparable to the numerical error target of 1%. To reduce the numerical error further, we would need to change the default relative error target of `ctmm.boot`, but the computational cost would continue to increase, and the comparably large statistical bias (2%) would remain.
 
-Now we will calculate the **AKDEc** based on the estimated parameters, and plot the home range of `animal2_gazelle`. Because of small **effective sample size**, we set optimal weights to `TRUE` for improved statistical efficiency:
+Now we will calculate the **AKDEc** based on the estimated parameters, and plot the home range of `animal2_gazelle`. Because of small ***effective sample size***, we set optimal weights to `TRUE` for improved statistical efficiency:
 
 ```{r}
 
@@ -313,7 +337,7 @@ summary(UD2_bpHREML)$CI
 
 ```
 
-Finally, we have calculated our home range for `animal2_gazelle`, with an estimated area of 13,274 square kilometers (with 95% confidence intervals: 3,231–30,280 km^2^). Our uncertainty with `animal2_gazelle` is substantially higher than with `animal1_buffalo`, as expected due to the small **effective sample size**.
+Finally, we have calculated our home range for `animal2_gazelle`, with an estimated area of 13,274 square kilometers (with 95% confidence intervals: 3,231–30,280 km^2^). Our uncertainty with `animal2_gazelle` is substantially higher than with `animal1_buffalo`, as expected due to the small ***effective sample size***.
 
 ```{r}
 
