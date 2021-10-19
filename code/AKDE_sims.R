@@ -12,7 +12,7 @@ tau_v <- 1 %#% 'hour'
 # The spatial variance in m^2
 sig <- 100000
 
-# True 95% range area
+# True 95% home range area
 true.area <- -2*log(0.05)*pi*sig
 
 # Generate the model
@@ -39,17 +39,18 @@ IID.mod <- ctmm.fit(sim,
 summary(IID.mod)
 
 # KDE range estimate
-kdeRngEst <- akde(data = sim, CTMM = IID.mod)
+kde <- akde(data = sim, CTMM = IID.mod)
 
 END <- Sys.time() # End time
 
 # KDE 95% range area
-kdeRngArea <- sum(kdeRngEst$CDF <= 0.95) * prod(kdeRngEst$dr)
+KDE.area <- sum(kde$CDF <= 0.95) * prod(kde$dr)
 
-# KDE 95% range area error
-KDE.error <- ( kdeRngArea - true.area ) / true.area
+# Metrics
+KDE.bias <- KDE.area - true.area
+KDE.error <- KDE.bias / true.area
 
-# The computation time
+# Computational cost
 KDE.time <- END - START
 KDE.time
 
@@ -71,19 +72,21 @@ OUF.mod <- ctmm.select(data = sim,
 summary(OUF.mod)
 
 # AKDE range estimate
-akdeRngEst <- akde(data = sim, CTMM = OUF.mod, debias = FALSE)
-summary(akdeRngEst)
+AKDE <- akde(data = sim, CTMM = OUF.mod, debias = FALSE)
+summary(AKDE)
 
 END <- Sys.time() # End time
 
 # AKDE 95% range area
-akdeRngArea <- sum(akdeRngEst$CDF <= 0.95) * prod(akdeRngEst$dr)
+AKDE.area <- sum(AKDE$CDF <= 0.95) * prod(AKDE$dr)
 
-# AKDE 95% range area error
-AKDE.error <- ( akdeRngArea - true.area ) / true.area
+# Metrics
+AKDE.bias <- AKDE.area - true.area
+AKDE.error <- KDE.bias / true.area
 
-# The computation time
+# Computational cost
 AKDE.time <- END - START
+AKDE.time
 
 #Reset the clock
 rm(START); rm(END)
@@ -105,23 +108,24 @@ OUF.mod <- ctmm.select(data = sim,
 summary(OUF.mod)
 
 #AKDEc range estimate
-akdecRngEst <- akde(data = sim,
+AKDEc <- akde(data = sim,
                     CTMM = OUF.mod,
                     debias = TRUE)
 
 END <- Sys.time() # End time
 
 # AKDEc 95% range area
-akdecRngArea <- sum(akdecRngEst$CDF <= 0.95) * prod(akdecRngEst$dr)
+AKDEc.area <- sum(AKDEc$CDF <= 0.95) * prod(AKDEc$dr)
 
-# AKDEc 95% range area error
-AKDEc.error <- ( akdecRngArea - true.area ) / true.area
+# Metrics
+AKDEc.bias <- AKDEc.area - true.area
+AKDEc.error <- KDE.bias / true.area
 
-# The computation time
+# Computational cost
 AKDEc.time <- END - START
+AKDEc.time
 
-
-#Reset the clock
+# Reset the clock
 rm(START); rm(END)
 
 
@@ -140,7 +144,7 @@ OUF.mod <- ctmm.select(data = sim,
 summary(OUF.mod)
 
 # Weighted AKDEc range estimate
-wakdecRngEst <- akde(data = sim,
+wAKDEc <- akde(data = sim,
                      CTMM = OUF.mod,
                      debias = TRUE,
                      weights = TRUE)
@@ -148,18 +152,17 @@ wakdecRngEst <- akde(data = sim,
 END <- Sys.time() # End time
 
 # Weighted AKDEc 95% range area
-wakdecRngArea <- sum(wakdecRngEst$CDF <= 0.95) * prod(wakdecRngEst$dr)
+wAKDEc.area <- sum(wAKDEc$CDF <= 0.95) * prod(wAKDEc$dr)
 
-# Weighted AKDEc 95% range area error
-wAKDEc.error <- ( wakdecRngArea - true.area ) / true.area
+# Metrics
+wAKDEc.bias <- wAKDEc.area - true.area
+wAKDEc.error <- KDE.bias / true.area
 
-# AKDE 95% error
-AKDE.error <- ( akdeRngArea - true.area ) / true.area
-
-# The computation time
+# Computational cost
 wAKDEc.time <- END - START
+wAKDEc.time
 
-#Reset the clock
+# Reset the clock
 rm(START); rm(END)
 
 
@@ -179,7 +182,7 @@ OUF.mod.phreml <- ctmm.select(data = sim,
 summary(OUF.mod.phreml)
 
 # pHREML weighted AKDEc range estimate
-pHREML_wakdecRngEst <- akde(data = sim,
+pHREML_wAKDEc <- akde(data = sim,
                             CTMM = OUF.mod.phreml,
                             debias = TRUE,
                             weights = TRUE)
@@ -187,14 +190,16 @@ pHREML_wakdecRngEst <- akde(data = sim,
 END <- Sys.time() # End time
 
 # pHREML weighted AKDEc 95% range area
-pHREML_wakdecRngArea <- sum(pHREML_wakdecRngEst$CDF <= 0.95) * 
-  prod(pHREML_wakdecRngEst$dr)
+pHREML_wAKDEc.area <- sum(pHREML_wAKDEc$CDF <= 0.95) * 
+  prod(pHREML_wAKDEc$dr)
 
-# pHREML weighted AKDEc 95% range area error
-pHREML_wAKDEc.error <- ( pHREML_wakdecRngArea - true.area ) / true.area
+# Metrics
+pHREML_wAKDEc.bias <- pHREML_wAKDEc.area - true.area
+pHREML_wAKDEc.error <- KDE.bias / true.area
 
-# The computation time
+# Computational cost
 pHREML_wAKDEc.time <- END - START
+pHREML_wAKDEc.time
 
 # Reset the clock
 rm(START); rm(END)
@@ -224,7 +229,7 @@ boot.fit <- ctmm.boot(data = sim,
 summary(boot.fit)
 
 # Bootstrapped weighted AKDEc range estimate
-boot_pHREML_wakdecRngEst <- akde(data = sim,
+boot_pHREML_wAKDEc <- akde(data = sim,
                                  CTMM = boot.fit,
                                  debias = TRUE,
                                  weights = TRUE)
@@ -232,15 +237,16 @@ boot_pHREML_wakdecRngEst <- akde(data = sim,
 END <- Sys.time() # End time
 
 # Bootstrapped pHREML weighted AKDEc 95% range area
-boot_pHREML_wakdecRngArea <- sum(boot_pHREML_wakdecRngEst$CDF <= 0.95) *
-  prod(boot_pHREML_wakdecRngEst$dr)
+boot_pHREML_wAKDEc.area <- sum(boot_pHREML_wAKDEc$CDF <= 0.95) *
+  prod(boot_pHREML_wAKDEc$dr)
 
-# Bootstrapped pHREML weighted AKDEc 95% range area error
-boot_pHREML_wAKDEc.error <- ( boot_pHREML_wakdecRngArea - true.area ) / 
-  true.area
+# Metrics
+boot_pHREML_wAKDEc.bias <- boot_pHREML_wAKDEc.area - true.area
+boot_pHREML_wAKDEc.error <- KDE.bias / true.area
 
-# The computation time
+# Computational cost
 boot_pHREML_wAKDEc.time <- END - START
+boot_pHREML_wAKDEc.time
 
 # Reset the clock
 rm(START); rm(END)
@@ -250,11 +256,11 @@ rm(START); rm(END)
 
 # Compare all of the relative area error side by side
 ERROR <- c(KDE.error,
-          AKDE.error,
-          AKDEc.error,
-          wAKDEc.error,
-          pHREML_wAKDEc.error,
-          boot_pHREML_wAKDEc.error)
+           AKDE.error,
+           AKDEc.error,
+           wAKDEc.error,
+           pHREML_wAKDEc.error,
+           boot_pHREML_wAKDEc.error)
 
 ERROR
 

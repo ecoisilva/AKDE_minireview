@@ -1,7 +1,7 @@
 ---
 title: "Guide to autocorrelated home range estimation"
 description: |
-    A step-by-step R tutorial supplementing our manuscript "***Autocorrelation-informed home range estimation: a review and practical guide"***" using the 'ctmm' package
+    **A step-by-step R tutorial using the ‘ctmm’ package**
 author: 
   - name: "Inês Silva"
     orcid_id: 0000-0003-4850-6193
@@ -10,7 +10,7 @@ author:
   - name: "Jesse Alston"
   - name: "Cody Folta"
   - name: "William F. Fagan"
-  - name: "Justin M.Calabrese"
+  - name: "Justin M. Calabrese"
 date: "`r Sys.Date()`"
 output: 
     distill::distill_article:
@@ -20,7 +20,7 @@ output:
         toc_depth: 2
         toc_float: true
 bibliography: references/R_tutorial.bib
-csl: references/apa.csl
+csl: references/mee.csl
 ---
 
 ```{r setup, include = FALSE}
@@ -32,15 +32,18 @@ knitr::opts_chunk$set(
 
 ```
 
+
+This tutorial is a companion piece to our manuscript ***"Autocorrelation-informed home range estimation: a review and practical guide"***. Preprint is available on [EcoEvoRxiv](https://ecoevorxiv.org/23wq7/). Click [here](https://ecoevorxiv.org/23wq7/download) to download the full text as a PDF file. For any definitions, check the main manuscript or the *[Glossary]*. 
+
 # Introduction
 
-Home range estimation is a key output from tracking datasets, but the inherent properties of animal movement can lead traditional methods to under- or overestimated their size. **Autocorrelated Kernel Density Estimation (AKDE)** methods were designed to be statistically efficient while explicitly dealing with the complexities and biases of modern movement data, such as *autocorrelation*, *small sample sizes*, and *missing or irregularly sampled data*.
+***Home range*** estimation is a key output from animal tracking datasets, but the inherent properties of animal movement can lead traditional methods to under- or overestimated their size. **Autocorrelated Kernel Density Estimation (AKDE)** methods were designed to be statistically efficient while explicitly dealing with the complexities and biases of modern movement data, such as *autocorrelation*, *small sample sizes*, and *missing or irregularly sampled data*.
 
 <aside>
 *Home range*: the area repeatedly used throughout an animal’s lifetime for all its normal behaviors and activities, excluding occasional exploratory moves.
 </aside>
 
-This tutorial is a companion piece to our manuscript *"Autocorrelation-informed home range estimation: a review and practical guide"*. For any definitions, check the main manuscript or the *[Glossary]*. The **AKDE** family of home range estimators will be run using **R software** (<https://www.r-project.org/>) and the `ctmm` package [@calabrese_ctmm_2016]. The techniques and mitigation measures available within this package include:
+The **AKDE** family of home range estimators will be run using **R software** (<https://www.r-project.org/>) and the `ctmm` package [@calabrese_ctmm_2016]. The techniques and mitigation measures available within this package include:
 
 ```{r, include = FALSE}
 
@@ -74,8 +77,7 @@ table
 
 ```
 
-AKDE~c~ and pHREML are default arguments within the `akde()` and `ctmm.select()` functions, respectively: both will run automatically if arguments `debias` and `method` are left unspecified. For most situations, we recommend keeping both of these arguments as the default.
-
+AKDE~c~ and pHREML are default arguments within the `akde()` and `ctmm.select()` functions, respectively. Both measures will run automatically if arguments `debias` and `method` are left unspecified. For most situations, we recommend keeping both of these arguments as the default.
 
 ```{r}
 
@@ -93,7 +95,7 @@ We will use two datasets, both available within the `ctmm` package: African buff
 
 We will focus on the simplest data structure:
 
-- `animal ID` --- An individual identifier for each animal tracked;
+- `animal ID` or `ID` --- An individual identifier for each animal tracked;
 - `timestamp` or `t` --- The date and time corresponding to a sensor measurement;
    - **Example**: 2021-01-01 18:31:00.000
       - **Format**: yyyy-MM-dd HH:mm:ss.SSS
@@ -108,14 +110,44 @@ Location can also be described as UTM locations instead of latitude/longitude. I
 
 ## **Step 1.** -- Formatting and loading an animal tracking dataset
 
-You can import data into R through the `read.table()` or `read.csv()` functions; make sure to navigate to the appropriate folder or working directory. For this tutorial, our data is already prepared into a list of `telemetry` objects which we can load into R:
+
+You can import data into R through the `read.table()` or `read.csv()` functions; make sure to navigate to the appropriate folder or working directory. For example:
+
+```{r, eval = FALSE}
+
+# First, list all files in your current directory:
+list.files() # make sure this leads to the location of your file
+```
+
+```{r}
+
+# Second, load the correct file:
+animal0_longlat <- read.csv(here("example_data_longlat.csv"))
+head(animal0_longlat)
+# or:
+animal0_utm <- read.csv(here("example_data_utm.csv"))
+head(animal0_utm)
+```
+
+```{r}
+
+# Finally, convert to telemetry object:
+animal0a <- as.telemetry(animal0_longlat)
+animal0b <- as.telemetry(animal0_utm)
+# if left unspecified, as.telemetry() will assume timezone = UTC
+
+```
+
+Both these files represent the same individual, with either *longitude*/*latitude*, or UTM coordinates (*easting*, *northing*, and *zone*). The `as.telemetry()` function will immediately identify the columns if they are correctly named, then output the minimum sampling interval for each individual in the dataset. In this example, `animal0` has a minimum sampling interval of 59 minutes.
 
 ### 1.1. Buffalo tracking data
+
+For this tutorial, we will use data already prepared into a list of `telemetry` objects. We can load it directly from the `ctmm` R package with the `data()` function:
 
 ```{r}
 
 data("buffalo")
-animal1_buffalo <- buffalo[[4]] # select individual number 4
+animal1_buffalo <- buffalo[[4]] # selecting individual number 4
 head(animal1_buffalo)
 
 # Plotting locations:
@@ -353,7 +385,7 @@ title(expression("Bootstrapped pHREML wAKDE"["C"]))
 
 ```
 
-The results presented here were generated with `R` version `4.0.5`, and `ctmm` version `0.6.0`.
+The results presented here were generated with `R` version `4.1.1`, and `ctmm` version `0.6.0`.
 
 ------------------------------------------------------------------------
 
@@ -369,3 +401,7 @@ The results presented here were generated with `R` version `4.0.5`, and `ctmm` v
 -- *Absolute sample size* (*n*): the number of observations (fixes) in a dataset.
 
 -- *Effective sample size* (*N*): number of range crossings that occurred during the observation period. Can be roughly estimated by dividing the duration of the tracking dataset by the average *home range crossing time* parameter.
+
+------------------------------------------------------------------------
+
+# References
