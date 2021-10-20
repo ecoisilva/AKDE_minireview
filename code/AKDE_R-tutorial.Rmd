@@ -110,22 +110,27 @@ Location can also be described as UTM locations instead of latitude/longitude. I
 
 ## **Step 1.** -- Formatting and loading an animal tracking dataset
 
+You can import data into R through the `read.table()` or `read.csv()` functions; make sure to navigate to the appropriate folder or working directory. You can find two example files within the GitHub repository [data folder](<https://github.com/ecoisilva/AKDE_minireview/tree/main/data>). To read these .csv files into R:
 
-You can import data into R through the `read.table()` or `read.csv()` functions; make sure to navigate to the appropriate folder or working directory. For example:
 
 ```{r, eval = FALSE}
 
-# First, list all files in your current directory:
-list.files() # make sure this leads to the location of your file
+install.packages("here")
+library(here)
+
+here() # your working directory
+
+# First, list all files in a specific folder:
+list.files("data") # verify that your file appears here
+
 ```
 
 ```{r}
-
-# Second, load the correct file:
-animal0_longlat <- read.csv(here("example_data_longlat.csv"))
+# Then load the file:
+animal0_longlat <- read.csv(here("data/example_data_longlat.csv"))
 head(animal0_longlat)
 # or:
-animal0_utm <- read.csv(here("example_data_utm.csv"))
+animal0_utm <- read.csv(here("data/example_data_utm.csv"))
 head(animal0_utm)
 ```
 
