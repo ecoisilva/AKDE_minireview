@@ -20,7 +20,7 @@ Preprint is available on [EcoEvoRxiv](https://ecoevorxiv.org/23wq7/). Click [her
 
 # R tutorial:
 
-> The **AKDE** family of home range estimators will be run using **R software** and the `ctmm` package (Calabrese *et al.*, [(2016)](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12559). If you are not familiar with `R`, make sure you follow these steps:
+> The **AKDE** family of home range estimators will be run using **R software** and the `ctmm` package (Calabrese *et al.*, [2016](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12559)). If you are not familiar with `R`, make sure you follow these steps:
 
 1. Install **R** from <https://www.r-project.org>.
 2. Install **RStudio Desktop** from [here](https://rstudio.com/products/rstudio/download/#download) for a graphical interface for R.
