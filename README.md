@@ -16,7 +16,7 @@ Preprint is available on [EcoEvoRxiv](https://ecoevorxiv.org/23wq7/). Click [her
 
 > This repository is a companion piece to our manuscript *"Autocorrelation-informed home range estimation: a review and practical guide"*, and provides:
 1. [R tutorial](https://ecoisilva.github.io/AKDE_minireview/code/AKDE_R-tutorial.html) (or as a [.pdf](files/SuppFile2_R-tutorial.pdf) file).
-1. Simulation [data](data/data_sims.csv) and [code](code/AKDE_sims.R).
+2. Simulation [data](data/data_sims.csv) and [code](code/AKDE_sims.R).
 
 # R tutorial:
 
@@ -37,6 +37,8 @@ We provide a guide to **home range estimation** using the following workflow:
 -  **Step 4.** -- Feeding a movement model into the *home range estimator*;
 -  **Step 5.** -- Evaluating additional *biases*, applying *mitigation measures*.
 
+Click [here](https://ecoisilva.github.io/AKDE_minireview/code/AKDE_R-tutorial.html) for the tutorial as a GitHub page (or [here](files/SuppFile2_R-tutorial.pdf) as a .pdf file).
+ 
 # Simulations:
 
 > To quantify the level of improvement offered by each mitigation measure and to explore the tradeoff between accuracy and computational cost, we performed a detailed simulation study. For more details, check our manuscript [here](https://www.biorxiv.org/).
@@ -48,14 +50,14 @@ We provide a guide to **home range estimation** using the following workflow:
 The [:file\_folder: **data**](/data) directory contains:
 
   - [:memo: data_sims.csv](data_sims.csv): Output from simulations. 
-	- `method` ? home range estimator method
-	- `duration`  ? sampling duration (in days)
-	- `bias` ? difference between the 95% home range estimate and the true 95% area
-	- `cost` ? computational cost (in seconds)
-	- `relArea` ? Relative home range area (true home range area is scaled to 1)
-	- `error` ? Relative error of home range area
-	- `tau_p` ? position autocorrelation timescale (in sec)
-	- `tau_v` ? velocity autocorrelation timescale (in sec)
+	- `method` - home range estimator method
+	- `duration`  - sampling duration (in days)
+	- `bias` - difference between the 95% home range estimate and the true 95% area
+	- `cost` - computational cost (in seconds)
+	- `relArea` - Relative home range area (true home range area is scaled to 1)
+	- `error` - Relative error of home range area
+	- `tau_p` - position autocorrelation timescale (in sec)
+	- `tau_v` - velocity autocorrelation timescale (in sec)
   - [:memo: example_data_longlat.csv](example_data_longlat.csv): Example dataset with coordinates as latitude/longitude. 
   - [:memo: example_data_utm.csv](example_data_utm.csv): Example dataset with UTM coordinates.
 
