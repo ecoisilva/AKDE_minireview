@@ -3,27 +3,32 @@
 <div align="center">
 
 &nbsp;&nbsp;&nbsp;
+<a href="https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.13786"><img border="0" alt="Manuscript" src="https://assets.dryicons.com/uploads/icon/svg/4926/home.svg" width="35" height="35"></a>&nbsp;&nbsp;&nbsp;
 <a href="mailto:i.simoes-silva@hzdr.de"><img border="0" alt="Email" src="https://assets.dryicons.com/uploads/icon/svg/8007/c804652c-fae4-43d7-b539-187d6a408254.svg" width="35" height="35"></a>&nbsp;&nbsp;&nbsp;
 <a href="https://twitter.com/ecoisilva"><img border="0" alt="Twitter" src="https://assets.dryicons.com/uploads/icon/svg/8385/c23f7ffc-ca8d-4246-8978-ce9f6d5bcc99.svg" width="35" height="35"></a>&nbsp;&nbsp;&nbsp;
 
 </div>
 
-### About the manuscript:
+# About:
 
-Preprint is available on [EcoEvoRxiv](https://ecoevorxiv.org/23wq7/). Click [here](https://ecoevorxiv.org/23wq7/download) to download the full text.
+This repository is a companion piece to the manuscript *"Autocorrelation-informed home range estimation: a review and practical guide"*, published in [Methods in Ecology and Evolution](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.13786). Preprint is also available on [EcoEvoRxiv](https://ecoevorxiv.org/23wq7/), so click [here](https://ecoevorxiv.org/23wq7/download) to download the full-text.
 
 > Home range estimation is a key output from tracking datasets, but the inherent properties of animal movement can lead traditional methods to under- or overestimated their size. **Autocorrelated Kernel Density Estimation (AKDE)** methods were designed to be statistically efficient while explicitly dealing with the complexities and biases of modern movement data, such as *autocorrelation*, *small sample sizes*, and *missing or irregularly sampled data*.
 
-> This repository is a companion piece to our manuscript *"Autocorrelation-informed home range estimation: a review and practical guide"*, and provides:
-1. [R tutorial](https://ecoisilva.github.io/AKDE_minireview/code/AKDE_R-tutorial.html) (or as a [.pdf](files/SuppFile2_R-tutorial.pdf) file).
-2. Simulation [data](data/data_sims.csv) and [code](code/AKDE_sims.R).
+Here, we provide:
+
+1. [R tutorial](https://ecoisilva.github.io/AKDE_minireview/code/AKDE_R-tutorial.html) as a GitHub page (or as a [.pdf](files/SuppFile2_R-tutorial.pdf) file).
+2. Simulation [data](data/data_sims.csv) and corresponding [R script](code/AKDE_sims.R).
+
+### Citation:
+> Silva, I., Fleming, C. H., Noonan, M. J., Alston, J., Folta, C., Fagan, W. F., & Calabrese, J. M. (2021). Autocorrelation-informed home range estimation: A review and practical guide. Methods in Ecology and Evolution. https://doi.org/10.1111/2041-210X.13786
 
 # R tutorial:
 
-> The **AKDE** family of home range estimators will be run using **R software** and the `ctmm` package (Calabrese *et al.*, [2016](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12559)). If you are not familiar with `R`, make sure you follow these steps:
+The **AKDE** family of home range estimators will be run using `R` software and the `ctmm` package (Calabrese *et al.*, [2016](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12559)). If you are not familiar with `R`, make sure you follow these steps:
 
-1. Install **R** from <https://www.r-project.org>.
-2. Install **RStudio Desktop** from [here](https://rstudio.com/products/rstudio/download/#download) for a graphical interface for R.
+1. Install `R` from <https://www.r-project.org>.
+2. Install `RStudio Desktop` from [here](https://rstudio.com/products/rstudio/download/#download) for a graphical interface for `R`.
 3. Install the required `R` packages with the following code:
 
 ```r
