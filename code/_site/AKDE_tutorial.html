@@ -192,7 +192,7 @@ div.csl-indent {
   <li class="dropdown-header">
  <span class="menu-text">Tutorial</span></li>
   <li class="nav-item compact">
-    <a class="nav-link" href="./AKDE_R_tutorial.html">
+    <a class="nav-link" href="./AKDE_R_tutorial.qmd">
  <span class="menu-text"></span></a>
   </li>  
 </ul>
@@ -440,7 +440,7 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting locations:</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(animal1_buffalo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="AKDE_R-tutorial_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid"></p>
+<p><img src="AKDE_tutorial_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>This dataset showcases an irregular sampling schedule: the buffalo nicknamed <em>“Pepper”</em> had a sampling rate shift from one fix every hour to one fix every two hours. We will use this dataset to highlight data irregularity and the <strong>wAKDE</strong> mitigation measure.</p>
@@ -463,7 +463,7 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting locations:</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(animal2_gazelle)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="AKDE_R-tutorial_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid"></p>
+<p><img src="AKDE_tutorial_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid"></p>
 </div>
 </div>
 <aside>
@@ -497,7 +497,7 @@ div.csl-indent {
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(SVF, <span class="at">xlim =</span> xlim, <span class="at">level =</span> level)</span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="AKDE_R-tutorial_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid"></p>
+<p><img src="AKDE_tutorial_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>We can see that the variogram flattens (<em>i.e.</em>, reaches an asymptote) after approximately <strong>1 month</strong> (<span style="color: red;">red</span> line). This also indicates at how coarse the timeseries needs to be to assume independence (no autocorrelation), and corresponds to when traditional methods —such as <strong>minimum convex polygons (MCPs)</strong> and <strong>Kernel Density Estimators (KDEs)</strong>— could be applied without violating their assumptions.</p>
@@ -573,7 +573,7 @@ div.csl-indent {
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(animal1_buffalo, <span class="at">UD =</span> UD1w_pHREML, <span class="at">ext =</span> EXT)</span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="fu">expression</span>(<span class="st">"pHREML wAKDE"</span>[<span class="st">"C"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="AKDE_R-tutorial_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid"></p>
+<p><img src="AKDE_tutorial_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>For <code>animal1_buffalo</code>, the difference between model parameter estimators is not substantial; we only have a ~5.7% AKDE area underestimation by ML compared to pHREML. However, the data fits the spatial locations much better.</p>
@@ -649,7 +649,7 @@ div.csl-indent {
 <span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(animal2_gazelle, <span class="at">UD =</span> UD2_bpHREML, <span class="at">ext =</span> EXT)</span>
 <span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span>(<span class="fu">expression</span>(<span class="st">"Bootstrapped pHREML wAKDE"</span>[<span class="st">"C"</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="AKDE_R-tutorial_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid"></p>
+<p><img src="AKDE_tutorial_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>The results presented here were generated with <code>R</code> version <code>4.2.3</code>, and <code>ctmm</code> version <code>1.1.1</code>.</p>

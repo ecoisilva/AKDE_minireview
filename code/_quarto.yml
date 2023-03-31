@@ -5,7 +5,8 @@ website:
   title: "AKDE minireview"
   navbar:
     left:
-      - AKDE_R_tutorial.qmd
+       - text: "Tutorial"
+       - href: AKDE_R_tutorial.html
 format:
   html:
     theme: simplex
