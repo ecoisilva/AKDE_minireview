@@ -21,7 +21,7 @@ Preprint is also available on [EcoEvoRxiv](https://ecoevorxiv.org/repository/vie
 Here, we provide:
 
 1. [R tutorial](https://ecoisilva.github.io/AKDE_minireview/code/AKDE_R-tutorial.html) as a GitHub page (or as a [.pdf](files/SuppFile2_R-tutorial.pdf) file).
-2. Simulation [data](data/data_sims.csv) and corresponding [R script](code/AKDE_sims.R).
+2. Simulation [data](data/data_sims.csv) and corresponding [R script](AKDE_sims.R).
 
 ### Citation:
 > Silva, I., Fleming, C. H., Noonan, M. J., Alston, J., Folta, C., Fagan, W. F., & Calabrese, J. M. (2022). Autocorrelation‐informed home range estimation: A review and practical guide. Methods in Ecology and Evolution, 13(3), 534-544. https://doi.org/10.1111/2041-210X.13786
@@ -45,11 +45,11 @@ We provide a guide to **home range estimation** using the following workflow:
 -  **Step 4.** -- Feeding a movement model into the *home range estimator*;
 -  **Step 5.** -- Evaluating additional *biases*, applying *mitigation measures*.
 
-Click [here](https://ecoisilva.github.io/AKDE_minireview/code/AKDE_R-tutorial.html) for the tutorial as a GitHub page (or [here](files/SuppFile2_R-tutorial.pdf) as a .pdf file).
+Click [here](https://ecoisilva.github.io/AKDE_minireview/code/AKDE_R-tutorial.html) for the tutorial as a GitHub page (or [here](files/SuppFile2_R-tutorial.pdf) as a .pdf file). The tutorial was generated with `R` version `4.2.3`, and `ctmm` version `1.1.1`.
  
 # Simulations:
 
-> To quantify the level of improvement offered by each mitigation measure and to explore the tradeoff between accuracy and computational cost, we performed a detailed simulation study. For more details, check our manuscript [here](https://www.biorxiv.org/).
+> To quantify the level of improvement offered by each mitigation measure and to explore the tradeoff between accuracy and computational cost, we performed a detailed simulation study. For more details, check our manuscript [here](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.13786).
 
 ![Methods comparison - error and computational cost](files/methods-comparison.png)
 

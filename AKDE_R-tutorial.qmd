@@ -16,7 +16,7 @@ format:
   html:
     toc: true
     html-math-method: katex
-    css: styles.css
+    css: references/styles.css
 bibliography: references/R_tutorial.bib
 csl: references/mee.csl
 ---
@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 
 ```
 
-This tutorial is a companion piece to our manuscript ***"Autocorrelation-informed home range estimation: a review and practical guide"***. Manuscript was published in [Methods in Ecology and Evolution](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13786). Preprint is also available on [EcoEvoRxiv](https://ecoevorxiv.org/repository/view/4026/). For any definitions, check the main manuscript or the *[Glossary]*. 
+This tutorial is a companion piece to our manuscript ***"Autocorrelation-informed home range estimation: a review and practical guide"***. Manuscript was published in [Methods in Ecology and Evolution](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13786). Preprint is also available on [EcoEvoRxiv](https://ecoevorxiv.org/repository/view/4026/). For any definitions, check the main manuscript or the *[Glossary]*. Download this tutorial as a .pdf file [here](https://github.com/ecoisilva/AKDE_minireview/blob/main/files/SuppFile2_R-tutorial.pdf).
 
 *To cite this material:*
 

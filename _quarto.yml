@@ -11,7 +11,7 @@ website:
 format:
   html:
     theme: simplex
-    css: styles.css
+    css: references/styles.css
     toc: true
 
 editor: visual
