@@ -44,3 +44,5 @@ vignettes/*.pdf
 
 # file backup
 /archives/
+
+/.quarto/

@@ -4,7 +4,7 @@
     "href": "AKDE_R-tutorial.html",
     "title": "Guide to autocorrelated home range estimation",
     "section": "",
-    "text": "This tutorial is a companion piece to our manuscript “Autocorrelation-informed home range estimation: a review and practical guide”. Manuscript was published in Methods in Ecology and Evolution. Preprint is also available on EcoEvoRxiv. For any definitions, check the main manuscript or the Glossary.\nTo cite this material:\nhttps://ecoisilva.github.io/AKDE_minireview/code/AKDE_R-tutorial.html"
+    "text": "This tutorial is a companion piece to our manuscript “Autocorrelation-informed home range estimation: a review and practical guide”. Manuscript was published in Methods in Ecology and Evolution. Preprint is also available on EcoEvoRxiv. For any definitions, check the main manuscript or the Glossary.\nTo cite this material:"
   },
   {
     "objectID": "AKDE_R-tutorial.html#step-1.-formatting-and-loading-an-animal-tracking-dataset",

@@ -36,8 +36,6 @@ This tutorial is a companion piece to our manuscript ***"Autocorrelation-informe
 
 > Silva, I., Fleming, C. H., Noonan, M. J., Alston, J., Folta, C., Fagan, W. F., & Calabrese, J. M. (2022). Autocorrelation‐informed home range estimation: A review and practical guide. Methods in Ecology and Evolution, 13(3), 534-544.
 
-https://ecoisilva.github.io/AKDE_minireview/code/AKDE_R-tutorial.html
-
 # Introduction
 
 ***Home range*** estimation is a key output from animal tracking datasets, but the inherent properties of animal movement can lead traditional methods to under- or overestimated their size. **Autocorrelated Kernel Density Estimation (AKDE)** methods were designed to be statistically efficient while explicitly dealing with the complexities and biases of modern movement data, such as *autocorrelation*, *small sample sizes*, and *missing or irregularly sampled data*.
