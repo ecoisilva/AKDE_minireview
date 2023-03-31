@@ -210,7 +210,7 @@ We can see that the variogram flattens (*i.e.*, reaches an asymptote) after appr
 
 It is necessary to choose a home range estimator that accounts for the autocorrelated structure of the data, now that we see that it is **not** independently and identically distributed (non-IID). We need to test what movement model may explain the autocorrelated structure of our tracking data. We can run different movement processes with **maximum likelihood (ML)** or other parameter estimators, such as **perturbative Hybrid REML (pHREML)**. To facilitate further comparisons, we will run both ML and pHREML with the `ctmm.select` function.
 
-```{r, eval = F}
+```{r}
 
 # Calculate an automated model guesstimate:
 GUESS1 <- ctmm.guess(animal1_buffalo, interactive = FALSE)
@@ -229,7 +229,7 @@ Within these summaries, `$name` provides the selected best-fit model, `$DOF` pro
 
 The typical pool of candidate models includes isotropic (when diffusion is the same in every direction; symmetrical) and anisotropic (when diffusion varies with direction; asymmetrical) variants. The automated model selection shows that *OUF anisotropic* (anisotropic Ornstein-Uhlenbeck foraging process) is our best-fit model. This movement process features a home range, correlated positions, and correlated velocities. To check the full model selection table, we can run the following command:
 
-```{r, eval = F}
+```{r}
 
 FIT1_pHREML_verbose <- ctmm.select(animal1_buffalo, GUESS1, verbose = TRUE)
 summary(FIT1_pHREML_verbose)
@@ -242,7 +242,7 @@ By adding the argument `verbose = TRUE` we have access to the model selection ta
 
 Now we can fit this movement process into the `akde()` function, and estimate the home range of `animal1_buffalo`. This function currently defaults to the **area-corrected AKDE**, or **AKDEc** (Fleming & Calabrese 2017):
 
-```{r, eval = F}
+```{r}
 
 # Run an area-corrected AKDE:
 UD1_ML <- akde(animal1_buffalo, FIT1_ML)
@@ -271,7 +271,7 @@ Our output here also reveals more information regarding our dataset: the ***effe
 
 As mentioned earlier, `animal1_buffalo` had a device malfunction that led GPS fixes to shift from one fix per hour, to one fix every two hours. As such, this individual is particularly suited for a **weighted AKDEc** (or **wAKDEc**), so we can re-run the function with weights set to `TRUE`:
 
-```{r, eval = F}
+```{r}
 
 UD1w_pHREML <- akde(animal1_buffalo, FIT1_pHREML, weights = TRUE)
 summary(UD1w_pHREML)$CI # home range area estimation (weighted)
@@ -306,7 +306,7 @@ For `animal1_buffalo`, the difference between model parameter estimators is not 
 
 We can also check the difference with `animal2_gazelle`'s tracking data, where the small ***effective sample size*** issue is clearer:
 
-```{r, eval = F}
+```{r}
 
 GUESS2 <- ctmm.guess(animal2_gazelle, interactive = FALSE)
 
@@ -340,7 +340,7 @@ At this point, we have selected a movement process, fed it into a home range are
 
 The bias is currently $\mathcal{O}(5\%)$ ("in the order of" 5%). As such, we will run parametric bootstrapping for `animal2_gazelle`. The relative error target is 1% by default (`argument error = 0.01`), but can be adjusted if necessary.
 
-```{r, eval = F}
+```{r}
 
 start_time <- Sys.time() # start recording running time
 BOOT <- ctmm.boot(animal2_gazelle, FIT2_pHREML, trace = 2)
@@ -356,7 +356,7 @@ We can see that the expected order of bias was reduced to 2.3%, which is compara
 
 Now we will calculate the **AKDEc** based on the estimated parameters, and plot the home range of `animal2_gazelle`. Because of small ***effective sample size***, we set optimal weights to `TRUE` for improved statistical efficiency:
 
-```{r, eval = F}
+```{r}
 
 UD2_bpHREML <- akde(animal2_gazelle, BOOT, weights = TRUE)
 summary(UD2_bpHREML)$CI
