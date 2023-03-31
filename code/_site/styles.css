@@ -1,0 +1,10 @@
+/* css styles */
+
+p {
+  text-align: justify;
+}
+
+#quarto-appendix.default [role="doc-endnotes"] > ol,
+#quarto-appendix.default .quarto-appendix-contents > :not(h2):not(.h2) {
+  text-align: justify;
+}
